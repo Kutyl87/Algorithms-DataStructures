@@ -104,3 +104,18 @@ std::vector<T> quickSort(const std::vector<T> &entryArray) {
   sort(outputArray, 0, n-1);
   return outputArray;
 }
+
+template <typename T>
+std::vector<T> insertionSort(const std::vector<T> &entryArray) {
+  size_t n = entryArray.size();
+  if (n == 0) {
+    return entryArray;
+  }
+  std::vector<T> outputArray = entryArray;
+  for (size_t i = 1; i < n; i++) {
+    for (size_t j = i; j > 0 && outputArray[j] < outputArray[j-1]; j--) {
+      std::swap(outputArray[j], outputArray[j-1]);
+    }
+  }
+  return outputArray;
+}
