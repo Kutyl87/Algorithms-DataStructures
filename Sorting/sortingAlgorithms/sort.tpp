@@ -2,21 +2,22 @@
 #include <algorithm>
 
 template <typename T>
-std::vector<T>& selectionSort(std::vector<T> &entryArray) {
+std::vector<T> selectionSort(const std::vector<T> &entryArray) {
   size_t n = entryArray.size();
   if (n ==0) {
     return entryArray;
   }
+  std::vector<T> outputArray = entryArray;
   for (size_t i = 0; i < n; i++) {
     size_t minIndex = i;
     for (size_t j = i + 1; j < n; j++) {
-      if (entryArray[j] < entryArray[minIndex]) {
+      if (outputArray[j] < outputArray[minIndex]) {
         minIndex = j;
       }
     }
-    std::swap(entryArray[i], entryArray[minIndex]);
+    std::swap(outputArray[i], outputArray[minIndex]);
   }
-  return entryArray;
+  return outputArray;
 }
 
 
@@ -47,7 +48,7 @@ std::vector<T> merge(std::vector<T> leftPart, std::vector<T> rightPart) {
 
 
 template <typename T>
-std::vector<T> mergeSort(std::vector<T> &entryArray) {
+std::vector<T> mergeSort(const std::vector<T> &entryArray) {
     if (entryArray.size() <= 1) {
         return entryArray;
       }
