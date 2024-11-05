@@ -15,6 +15,7 @@ int main() {
   sorts["merge sort"] = mergeSort<std::string>;
   sorts["quick sort"] = quickSort<std::string>;
   sorts["insertion sort"] = insertionSort<std::string>;
+  sorts["bubble sort"] = bubbleSort<std::string>;
   std::vector<double> ns;
   for(int n = 1000; n <= 10000; n += 1000) {
     ns.push_back(n);

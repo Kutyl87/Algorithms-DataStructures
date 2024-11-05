@@ -12,5 +12,7 @@ template<typename T>
 std::vector<T> quickSort(const std::vector<T>& entryArray);
 template<typename T>
 std::vector<T> insertionSort(const std::vector<T>& entryArray);
+template<typename T>
+std::vector<T> bubbleSort(const std::vector<T>& entryArray);
 #include "sort.tpp"
 #endif
