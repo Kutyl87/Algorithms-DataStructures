@@ -2,7 +2,7 @@
 #include "utils.h"
 int main() {
   std::vector<double> x = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
-  std::unordered_map<std::string, std::vector<double>> resultsMap = {
+  std::map<std::string, std::vector<double>> resultsMap = {
       {"Series A", {0, 1, 4, 9, 16, 25, 36, 49, 64, 81}},
       {"Series B", {0, 1, 2, 3, 4, 5, 6, 7, 8, 9}},
       {"Series C", {0, -1, -2, -3, -4, -5, -6, -7, -8, -9}},
