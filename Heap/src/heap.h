@@ -1,5 +1,6 @@
 #ifndef HEAP_H
 #define HEAP_H
+#include <vector>
 
 template <typename T>
 class Heap {
