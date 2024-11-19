@@ -25,6 +25,14 @@ int main() {
   for (size_t i = 0; i < numElements; ++i) {
     numbers.push_back(dist(generator));
   }
+  for(auto d : {2, 5, 7}) {
+    Heap<int> heap(d);
+    for(size_t i = 0; i < 60; ++i) {
+      heap.push(numbers[i]);
+    }
+    std::cout << "Kopiec " << d << "-arny:\n";
+    heap.print();
+  }
   std::map<std::string, std::vector<double>> createResults;
   std::map<std::string, std::vector<double>> popResults;
   std::vector<double> ns;

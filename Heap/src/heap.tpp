@@ -46,3 +46,20 @@ T Heap<T>::pop() {
   }
   return root;
 }
+
+template <typename T>
+void Heap<T>::print(std::size_t index, std::string prefix, bool last) {
+  std::cout << prefix;
+  if(index > 0) {
+    std::cout << (last ? "   `" : "   |");
+  }
+  std::cout << "---" << dataContainer[index] << "\n";
+  size_t i = left(index);
+  prefix = index == 0 ? "" : prefix + (last ? "    " : "   |");
+  for(; i + 1 < left(index) + arn && i + 1 < dataContainer.size(); ++i) {
+    print(i, prefix);
+  }
+  if(i < dataContainer.size()) {
+    print(i, prefix, true);
+  }
+}
