@@ -15,7 +15,6 @@ void Heap<T>::down_heap(std::size_t k) {
     std::size_t leftIndex = left(k);
     std::size_t branches = arn - 1;
     while (branches) {
-      std::cout << leftIndex + branches;
       if (leftIndex + branches < dataContainer.size() &&
           dataContainer[leftIndex + branches] < dataContainer[leftIndex]) {
         leftIndex += branches;
