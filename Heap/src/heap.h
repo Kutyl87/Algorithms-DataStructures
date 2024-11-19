@@ -1,5 +1,7 @@
 #ifndef HEAP_H
 #define HEAP_H
+#include <vector>
+#include <string>
 
 template <typename T>
 class Heap {
@@ -17,6 +19,7 @@ public:
   T top() const { return dataContainer[0]; }
   T pop();
   void push(T element);
+  void print(std::size_t index = 0, std::string prefix = "", bool last = false); 
 };
 
 #include "heap.tpp"
