@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16.0)
 project(TreeTests)
-set(SOURCE_FILES bstTests.cpp)
+set(SOURCE_FILES bstTests.cpp AVLTests.cpp)
 include(FetchContent)
 FetchContent_Declare(
         Catch2

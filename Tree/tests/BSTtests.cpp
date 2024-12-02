@@ -1,6 +1,5 @@
 #include <catch2/catch_approx.hpp>
 #include <catch2/catch_test_macros.hpp>
-#include "BSTNode.h"
 #include "BSTTree.h"
 
 TEST_CASE("BSTTree put and get operations") {
