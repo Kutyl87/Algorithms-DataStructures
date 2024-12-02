@@ -33,8 +33,6 @@ TEST_CASE("BSTTree deleteNode operations") {
   REQUIRE_FALSE(tree.get(100).has_value());
 }
 
-
-
 TEST_CASE("BSTTree edge cases") {
   BSTTree<int> tree;
   REQUIRE_FALSE(tree.get(10).has_value());
