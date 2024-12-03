@@ -1,5 +1,6 @@
 #include "BSTNode.h"
 #include "BSTTree.h"
+#include <iostream>
 
 template <typename T>
 void BSTTree<T>::put(T key) {
@@ -87,4 +88,23 @@ std::unique_ptr<BSTNode<T>> BSTTree<T>::removeMin(std::unique_ptr<BSTNode<T>> no
   }
   node->left = removeMin(std::move(node->left));
   return node;
+}
+
+template <typename T>
+void BSTTree<T>::print(const BSTNode<T> *node, std::string prefix, bool up) const {
+  if(!root) {
+    return;
+  }
+  if(node == nullptr) {
+    node = root.get();
+  }
+  if(node->left) {
+    print(node->left.get(), prefix + (node == root.get() ? "" : (up ? "    " : "   |")), true);
+  }
+  std::cout << prefix;
+  if(node != root.get()) std::cout << (up ? "   ," : "   `");
+  std::cout << "---" << node->value << "\n";
+  if(node->right) {
+    print(node->right.get(), prefix + (node == root.get() ? "" : (up ? "   |" : "    ")), false);
+  }
 }
