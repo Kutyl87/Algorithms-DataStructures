@@ -27,7 +27,7 @@ void Heap<keyT, priorityT, hash_fun>::down_heap(std::size_t k) {
     if (dataContainer[k].priority < dataContainer[leftIndex].priority) {
       break;
     }
-    std::swap(dataContainer[k].priority, dataContainer[leftIndex].priority);
+    std::swap(dataContainer[k], dataContainer[leftIndex]);
     positionMap[dataContainer[leftIndex].key] = leftIndex;
     positionMap[dataContainer[k].key] = k;
     k = leftIndex;

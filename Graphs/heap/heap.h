@@ -5,7 +5,7 @@
 #include <unordered_map>
 
 template <typename keyT, typename priorityT>
-class Node {
+struct Node {
   keyT key;
   priorityT priority;
 };
@@ -28,6 +28,8 @@ public:
   NodeT top() const { return dataContainer[0]; }
   NodeT pop();
   void push(NodeT element);
+  void set(keyT key, priorityT priority) { if(!positionMap.count(key)) push({key, priority}); else decreasePriority(key, priority); }
+  bool empty() { return dataContainer.empty(); }
   void print(std::size_t index = 0, std::string prefix = "", bool last = false);
   void decreasePriority(keyT key, priorityT newPriority);
 };
