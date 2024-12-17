@@ -29,7 +29,7 @@ public:
   NodeT pop();
   void push(NodeT element);
   void print(std::size_t index = 0, std::string prefix = "", bool last = false);
-  void decreasePriotity(keyT key, priorityT newPriority);
+  void decreasePriority(keyT key, priorityT newPriority);
 };
 
 #include "heap.tpp"

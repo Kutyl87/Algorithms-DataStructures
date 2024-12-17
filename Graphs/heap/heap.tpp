@@ -5,7 +5,9 @@ template <typename keyT, typename priorityT, typename hash_fun>
 void Heap<keyT, priorityT, hash_fun>::up_heap(std::size_t k) {
   while (k != 0 && dataContainer[parent(k)].priority > dataContainer[k].priority) {
     std::swap(dataContainer[k], dataContainer[parent(k)]);
+    positionMap[dataContainer[k].key] = k;
     k = parent(k);
+    positionMap[dataContainer[k].key] = k;
   }
 }
 
@@ -26,6 +28,8 @@ void Heap<keyT, priorityT, hash_fun>::down_heap(std::size_t k) {
       break;
     }
     std::swap(dataContainer[k].priority, dataContainer[leftIndex].priority);
+    positionMap[dataContainer[leftIndex].key] = leftIndex;
+    positionMap[dataContainer[k].key] = k;
     k = leftIndex;
   }
 }
@@ -33,6 +37,7 @@ void Heap<keyT, priorityT, hash_fun>::down_heap(std::size_t k) {
 template  <typename keyT, typename priorityT, typename hash_fun>
 void Heap<keyT, priorityT, hash_fun>::push(Node<keyT, priorityT> element) {
   dataContainer.push_back(element);
+  positionMap[dataContainer[dataContainer.size() - 1].key] = dataContainer.size() - 1;
   up_heap(dataContainer.size() - 1);
 }
 
@@ -40,11 +45,19 @@ template  <typename keyT, typename priorityT, typename hash_fun>
 Node<keyT, priorityT> Heap<keyT, priorityT, hash_fun>::pop() {
   Node<keyT, priorityT> root = dataContainer[0];
   dataContainer[0] = dataContainer[dataContainer.size() - 1];
+  positionMap[dataContainer[0].key] = 0;
+  positionMap.erase(root.key);
   dataContainer.pop_back();
   if (!dataContainer.empty()) {
     down_heap(0);
   }
   return root;
+}
+
+template  <typename keyT, typename priorityT, typename hash_fun>
+void Heap<keyT, priorityT, hash_fun>::decreasePriority(keyT key, priorityT newPriority) {
+  dataContainer[positionMap[key]].priority = newPriority;
+  up_heap(positionMap[key]);
 }
 
 template  <typename keyT, typename priorityT, typename hash_fun>
