@@ -11,5 +11,7 @@ set_target_properties(grafy
         CXX_STANDARD_REQUIRED ON
 )
 target_include_directories(grafy PRIVATE ../heap)
-target_compile_options(grafy PRIVATE -Wall -Wextra -pedantic -Werror -g)
+if(!MSVC)
+        target_compile_options(grafy PRIVATE -Wall -Wextra -pedantic -Werror -g)
+endif()
 target_link_libraries(grafy PUBLIC HeapLib)

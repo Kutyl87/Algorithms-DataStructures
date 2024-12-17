@@ -16,6 +16,7 @@ struct hash_pair
 int dijkstra(std::vector<std::string> &grid, std::pair<int, int> source, std::pair<int, int> target) {
   std::pair<int, int> edges[] = {{-1, 0}, {0, -1}, {1, 0}, {0, 1}};
   std::vector<std::vector<int>> min_distance(grid.size(), std::vector<int>(grid[0].size(), -1));
+  std::vector<std::vector<std::pair<int, int>>> parent(grid.size(), std::vector<std::pair<int, int>>(grid[0].size(), {-1, -1}));
   min_distance[source.first][source.second] = 0;
   Heap<std::pair<int, int>, int, hash_pair> active_vertices(5);
   active_vertices.set(source, 0);
@@ -42,6 +43,7 @@ int dijkstra(std::vector<std::string> &grid, std::pair<int, int> source, std::pa
       if (min_distance[to.first][to.second] == -1 || min_distance[to.first][to.second] > min_distance[where.first][where.second] + weight) {
         min_distance[to.first][to.second] = min_distance[where.first][where.second] + weight;
         active_vertices.set({to.first, to.second}, min_distance[to.first][to.second]);
+        parent[to.first][to.second] = where;
       }
     }
   }
@@ -56,20 +58,7 @@ int dijkstra(std::vector<std::string> &grid, std::pair<int, int> source, std::pa
   std::pair<int, int> where = target;
   while(where != source) {
     grid[where.first][where.second] = oldGrid[where.first][where.second];
-    auto minNeighbor = where;
-    for (auto edge : edges) {
-      std::pair<int, int> to = {where.first + edge.first, where.second + edge.second};
-      if(to.first < 0) continue;
-      if(to.first >= int(grid.size())) continue;
-      if(to.second < 0) continue;
-      if(to.second >= int(grid[0].size())) continue;
-      if(min_distance[to.first][to.second] == -1) continue;
-      if(grid[to.first][to.second] != ' ') continue;
-      if(minNeighbor == where || min_distance[to.first][to.second] < min_distance[minNeighbor.first][minNeighbor.second]) {
-        minNeighbor = to;
-      }
-    }
-    where = minNeighbor;
+    where=parent[where.first][where.second];
   }
   grid[where.first][where.second] = oldGrid[where.first][where.second];
 
