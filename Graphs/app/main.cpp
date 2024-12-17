@@ -1,5 +1,4 @@
-#include "heap.h"
-#include "utils.h"
+#include "../heap/heap.h"
 #include <vector>
 #include <string>
 #include <fstream>
@@ -9,61 +8,57 @@
 #include <iostream>
 #include <random>
 #include <sstream>
+#include <vector>
+/*
+int dijkstra(std::vector<std::string> &grid, std::pair<int, int> source, std::pair<int, int> target) {
+  std::pair<int, int> edges[] = {{-1, 0}, {0, -1}, {1, 0}, {0, 1}};
+  std::vector<std::vector<int>> min_distance(grid.size(), std::vector<int>(grid[0].size(), -1));
+  min_distance[source.first][source.second] = 0;
+  better_priority_queue::updatable_priority_queue<std::pair<int, int>, int> active_vertices;
+  active_vertices.set(source, 0);
+
+  while (!active_vertices.empty()) {
+    std::pair<int, int> where = active_vertices.pop_value().key;
+    if (where == target) return min_distance[where.first][where.second];
+    for (auto edge : edges) {
+      std::pair<int, int> to = {where.first + edge.first, where.second + edge.second};
+      if(to.first < 0) continue;
+      if(to.first >= grid.size()) continue;
+      if(to.second < 0) continue;
+      if(to.second >= grid[0].size()) continue;
+      int weight = grid[to.first][to.second];
+      if(weight == 'J' || weight == 'X') {
+        weight = 0;
+      }
+      else {
+        weight -= '0';
+      }
+      if (min_distance[to.first][to.second] == -1 || min_distance[to.first][to.second] > min_distance[where.first][where.second] + weight) {
+        min_distance[to.first][to.second] = min_distance[where.first][where.second] + weight;
+        active_vertices.set({to.first, to.second}, -min_distance[to.first][to.second]);
+      }
+    }
+  }
+  return -1;
+}
+*/
+
+struct hash_pair
+{
+  std::size_t operator()(const std::pair<int, int>& p) const noexcept
+  {
+    return p.first * 29 ^ p.second * 31;
+  }
+};
 
 int main() {
-  const size_t numElements = 100000;
-  const int minValue = 1;
-  const int maxValue = 300000;
-
-  std::vector<int> numbers;
-  numbers.reserve(numElements);
-
-  std::random_device rd;
-  std::mt19937 generator(rd());
-  std::uniform_int_distribution<int> dist(minValue, maxValue);
-
-  for (size_t i = 0; i < numElements; ++i) {
-    numbers.push_back(dist(generator));
+  std::vector<std::string> grid;
+  std::string line;
+  while(std::cin >> line) {
+    grid.push_back(line);
   }
-  for(auto d : {2, 5, 7}) {
-    Heap<int> heap(d);
-    for(size_t i = 0; i < 60; ++i) {
-      heap.push(numbers[i]);
-    }
-    std::cout << "Kopiec " << d << "-arny:\n";
-    heap.print();
+  for(auto &l : grid) {
+    std::cout << l;
   }
-  std::map<std::string, std::vector<double>> createResults;
-  std::map<std::string, std::vector<double>> popResults;
-  std::vector<double> ns;
-  for(size_t n = 10000; n <= numElements; n += 10000) {
-    ns.push_back(n);
-    for(auto d : {2, 5, 7}) {
-      auto start = std::clock();
-      Heap<int> heap(d);
-      for(size_t i = 0; i < n; ++i) {
-        heap.push(numbers[i]);
-      }
-      auto end = std::clock();
-      std::stringstream ss;
-      ss << d << "-arny";
-      createResults[ss.str()].push_back(static_cast<double>(end-start)/CLOCKS_PER_SEC);
-      Heap<int> bigHeap(d);
-      for(size_t i = 0; i < numElements; ++i) {
-        bigHeap.push(numbers[i]);
-      }
-      start = std::clock();
-      for(size_t i = 0; i < n; ++i) {
-        bigHeap.pop();
-      }
-      end = std::clock();
-      popResults[ss.str()].push_back(static_cast<double>(end-start)/CLOCKS_PER_SEC);
-    }
-  }
-
-  std::string createResultsFilename = "create_plot.png";
-  plot(ns, createResults, createResultsFilename);
-  std::string popResultsFilename = "pop_plot.png";
-  plot(ns, popResults, popResultsFilename);
-  return 0;
+  Heap<std::pair<int, int>, int, hash_pair> pq(5);
 }
