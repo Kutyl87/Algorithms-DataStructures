@@ -1,0 +1,7 @@
+init 1 0 R flip  
+init 0 1 R flip  
+init _ _ * halt  
+flip 1 0 R flip  
+flip 0 1 R flip  
+flip _ _ * halt  
+
