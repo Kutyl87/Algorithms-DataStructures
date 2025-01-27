@@ -8,29 +8,17 @@ std::string Turing::getCurrentState() const {
   return currentState;
 }
 
-//std::string Turing::getCurrentSymbol() {
-//  return currentSymbol;
-//}
-
-//void Turing::saveSymbol(std::string newSymbol) {
-//  this->currentSymbol= newSymbol;
-//}
-
-//void Turing::setState(std::string newState) {
-//  this->currentState = newState;
-//}
-
 int Turing::getCurrentPosition() const{
   return currentPosition;
 }
 
-std::vector<char> Turing::getTape() const {
+std::deque<char> Turing::getTape() const {
   return tape;
 }
 void Turing::setInstructions(std::unordered_map<std::string, std::tuple<char, char, std::string>> newInstructions){
   this->instructions = newInstructions;
 }
-void Turing::setTape(const std::vector<char>& inputTape){
+void Turing::setTape(const std::deque<char>& inputTape){
   this->tape = inputTape;
 }
 
@@ -68,6 +56,7 @@ void Turing::run() {
       currentPosition++;
     }
     if (currentPosition < 0) {
+      tape.push_front('_');
       currentPosition = 0;
     }
     if ((size_t)currentPosition >= tape.size()) {

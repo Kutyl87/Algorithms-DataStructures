@@ -6,26 +6,25 @@
 #define ALGORITHMS_DATASTRUCTURES_TURING_H
 #include <tuple>
 #include <string>
-#include <vector>
+#include <deque>
 #include <unordered_map>
 class Turing {
 private:
   std::string currentState;
-  std::vector<char> tape;
+  std::deque<char> tape;
   int currentPosition;
   std::unordered_map<std::string, std::tuple<char, char, std::string>> instructions;
 public:
-//  void saveSymbol(const std::string& newSymbol);
   std::string getCurrentState() const;
   std::string getCurrentSymbol() const;
   int getCurrentPosition() const;
-  std::vector<char> getTape() const;
+  std::deque<char> getTape() const;
   void setInstructions(std::unordered_map<std::string, std::tuple<char, char, std::string>> newInstructions);
   void run();
-  Turing(std::vector<char> inputTape): currentState("init"),tape(inputTape), currentPosition(0){
+  Turing(std::deque<char> inputTape): currentState("init"),tape(inputTape), currentPosition(0){
     tape.push_back('_');
   }
-  void setTape(const std::vector<char>& inputTape);
+  void setTape(const std::deque<char>& inputTape);
 
 };
 

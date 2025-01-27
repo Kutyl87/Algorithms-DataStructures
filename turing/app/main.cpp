@@ -6,16 +6,19 @@
 #include "Turing.h"
 
 int main(int argc, char** argv) {
-  if (argc != 2) {
-    std::cerr << "Usage: " << argv[0] << " <instructions_file>" << std::endl;
+  if (argc != 3) {
+    std::cerr << "Usage: " << argv[0] << " <tape> <instructions_file>" << std::endl;
     return 1;
   }
-  std::ifstream inputFile(argv[1]);
+
+  std::string tapeInput = argv[1];
+  std::ifstream inputFile(argv[2]);
   if (!inputFile.is_open()) {
-    std::cerr << "Error opening file: " << argv[1] << std::endl;
+    std::cerr << "Error opening file: " << argv[2] << std::endl;
     return 1;
   }
-  std::vector<char> tape = {'1', '0', '1', '1'};
+
+  std::deque<char> tape(tapeInput.begin(), tapeInput.end());
   Turing machine(tape);
   std::unordered_map<std::string, std::tuple<char, char, std::string>> instructions;
   std::string line;
