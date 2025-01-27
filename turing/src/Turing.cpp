@@ -30,7 +30,7 @@ void Turing::run() {
   }
   std::cout << std::endl;
   std::cout << "Head Position: " << currentPosition << std::endl;
-  while (currentState != "halt") {
+  while (currentState.substr(0, 4) != "halt") {
     char currentSymbol = this->tape[currentPosition];
     std::string key = currentState + "," + currentSymbol;
     if (this->instructions.find(key) == this->instructions.end()) {
