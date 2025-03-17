@@ -21,6 +21,7 @@ private:
 public:
   void put(T key);
   std::optional<T> get(T key) const;
+  void print(const BSTNode<T> *node = nullptr, std::string prefix = "", bool up = false) const; 
 };
 
 #include "AVLTree.tpp"

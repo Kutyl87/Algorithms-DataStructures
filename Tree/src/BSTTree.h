@@ -18,6 +18,7 @@ public:
   void put(T key);
   std::optional<T> get(T key) const;
   void deleteNode(T key);
+  void print(const BSTNode<T> *node = nullptr, std::string prefix = "", bool up = false) const; 
 };
 #include "BSTTree.tpp"
 #endif // ALGORITHMS_DATASTRUCTURES_BSTTREE_H

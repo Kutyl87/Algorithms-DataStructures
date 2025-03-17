@@ -1,5 +1,6 @@
 #include "BSTNode.h"
 #include "AVLTree.h"
+#include <iostream>
 
 template <typename T>
 void AVLTree<T>::put(T key) {
@@ -91,4 +92,23 @@ std::unique_ptr<BSTNode<T>> AVLTree<T>::balance(std::unique_ptr<BSTNode<T>> node
     return rotateRight(std::move(node));
   }
   return node;
+}
+
+template <typename T>
+void AVLTree<T>::print(const BSTNode<T> *node, std::string prefix, bool up) const {
+  if(!root) {
+    return;
+  }
+  if(node == nullptr) {
+    node = root.get();
+  }
+  if(node->left) {
+    print(node->left.get(), prefix + (node == root.get() ? "" : (up ? "    " : "   |")), true);
+  }
+  std::cout << prefix;
+  if(node != root.get()) std::cout << (up ? "   ," : "   `");
+  std::cout << "---" << node->value << "\n";
+  if(node->right) {
+    print(node->right.get(), prefix + (node == root.get() ? "" : (up ? "   |" : "    ")), false);
+  }
 }
